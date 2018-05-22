@@ -14,45 +14,52 @@ import atm.parts.Keypad;
 public class ATMConsole {
     private boolean userAuthenticated = false;
     private int currentAccountNumber = 0;
-    private DisplayScreen displayScreen = new DisplayScreen();
-    private Keypad keypad = new Keypad();
-    private CashDispenser cashDispenser = new CashDispenser();
-    private DepositSlot depositSlot = new DepositSlot();
-    private Bank bank = new Bank();
+    private Bank bank;
+    private Keypad keypad;
+    private DepositSlot depositSlot;
+    private DisplayScreen displayScreen;
+    private CashDispenser cashDispenser;
     private static final int BALANCE = 1;
     private static final int WITHDRAW = 2;
     private static final int DEPOSIT = 3;
     private static final int EXIT = 4;
 
     public ATMConsole() {
+        bank = new Bank();
+        keypad = new Keypad();
+        depositSlot = new DepositSlot();
+        displayScreen = new DisplayScreen();
+        cashDispenser = new CashDispenser();
     }
 
     public void run() {
         while(true) {
-            if (!this.userAuthenticated) {
-                this.displayScreen.displayMessageLine("\nWelcome!");
-                this.authenticateUser();
-            } else {
-                this.promptForTransactions();
-                this.userAuthenticated = false;
-                this.currentAccountNumber = 0;
-                this.displayScreen.displayMessageLine("\nThank you! Goodbye!");
+            if (userAuthenticated) {
+                promptForTransactions();
+                userAuthenticated = false;
+                currentAccountNumber = 0;
+                displayScreen.displayMessageLine("\nThank you! Goodbye!");
+            }
+            else {
+                displayScreen.displayMessageLine("\nWelcome!");
+                authenticateUser();
             }
         }
     }
 
     private void authenticateUser() {
-        this.displayScreen.displayMessage("\nEnter your account number: ");
-        int accountNumber = this.keypad.getInput();
-        this.displayScreen.displayMessage("\nEnter your PIN: ");
-        int pin = this.keypad.getInput();
-        this.userAuthenticated = Authentication.isValidUser(accountNumber, pin);
-        if (this.userAuthenticated) {
-            this.currentAccountNumber = accountNumber;
-        } else {
-            this.displayScreen.displayMessageLine("\nInvalid account number or PIN. Please try again.");
-        }
+        displayScreen.displayMessage("\nEnter your account number: ");
+        int accountNumber = keypad.getInput();
 
+        displayScreen.displayMessage("\nEnter your PIN: ");
+        int pin = keypad.getInput();
+
+        userAuthenticated = Authentication.isValidUser(accountNumber, pin);
+
+        if (userAuthenticated)
+            currentAccountNumber = accountNumber;
+        else
+            displayScreen.displayMessageLine("\nInvalid account number or PIN. Please try again.");
     }
 
     private void promptForTransactions() {
@@ -60,52 +67,54 @@ public class ATMConsole {
         boolean finished = false;
 
         while(!finished) {
-            int option = this.displayMainMenu();
+            int option = displayMainMenu();
+
             switch(option) {
-                case 1:
-                    currentTransaction = this.createTransaction(option);
+                case BALANCE:
+                    currentTransaction = createTransaction(option);
                     ((Balance)currentTransaction).execute();
                     break;
-                case 2:
-                    currentTransaction = this.createTransaction(option);
+                case WITHDRAW:
+                    currentTransaction = createTransaction(option);
                     ((Withdraw)currentTransaction).execute();
                     break;
-                case 3:
-                    currentTransaction = this.createTransaction(option);
+                case DEPOSIT:
+                    currentTransaction = createTransaction(option);
                     ((Deposit)currentTransaction).execute();
                     break;
-                case 4:
-                    this.displayScreen.displayMessageLine("\nExiting the system...");
+                case EXIT:
+                    displayScreen.displayMessageLine("\nExiting the system...");
                     finished = true;
                     break;
                 default:
-                    this.displayScreen.displayMessageLine("\nYou did not enter a valid selection. Try again.");
+                    displayScreen.displayMessageLine("\nYou did not enter a valid selection. Try again.");
             }
         }
-
     }
 
     private int displayMainMenu() {
-        this.displayScreen.displayMessageLine("\nMain menu:");
-        this.displayScreen.displayMessageLine("\t(1) - View my balance");
-        this.displayScreen.displayMessageLine("\t(2) - Withdraw cash");
-        this.displayScreen.displayMessageLine("\t(3) - Deposit funds");
-        this.displayScreen.displayMessageLine("\t(4) - Exit");
-        this.displayScreen.displayMessage("\nEnter an option: ");
-        return this.keypad.getInput();
+        displayScreen.displayMessageLine("\nMain menu:");
+        displayScreen.displayMessageLine("\t(1) - View my balance");
+        displayScreen.displayMessageLine("\t(2) - Withdraw cash");
+        displayScreen.displayMessageLine("\t(3) - Deposit funds");
+        displayScreen.displayMessageLine("\t(4) - Exit");
+        displayScreen.displayMessage("\nEnter an option: ");
+
+        return keypad.getInput();
     }
 
     private Transaction createTransaction(int option) {
         Transaction transaction = null;
+
         switch(option) {
-            case 1:
-                transaction = new Balance(this.currentAccountNumber, this.displayScreen, this.bank);
+            case BALANCE:
+                transaction = new Balance(currentAccountNumber, displayScreen, bank);
                 break;
-            case 2:
-                transaction = new Withdraw(this.currentAccountNumber, this.displayScreen, this.bank, this.keypad, this.cashDispenser);
+            case WITHDRAW:
+                transaction = new Withdraw(currentAccountNumber, displayScreen, bank, keypad, cashDispenser);
                 break;
-            case 3:
-                transaction = new Deposit(this.currentAccountNumber, this.displayScreen, this.bank, this.keypad, this.depositSlot);
+            case DEPOSIT:
+                transaction = new Deposit(currentAccountNumber, displayScreen, bank, keypad, depositSlot);
         }
 
         return (Transaction)transaction;

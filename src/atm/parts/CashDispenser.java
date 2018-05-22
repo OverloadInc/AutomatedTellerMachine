@@ -9,11 +9,12 @@ public class CashDispenser {
 
     public void dispenseCash(int amount) {
         int billsRequired = amount / 20;
-        this.billsRemaining -= billsRequired;
+        billsRemaining -= billsRequired;
     }
 
     public boolean isSufficientCashAvailable(int amount) {
         int billsRequired = amount / 20;
-        return this.billsRemaining >= billsRequired;
+
+        return billsRemaining >= billsRequired;
     }
 }

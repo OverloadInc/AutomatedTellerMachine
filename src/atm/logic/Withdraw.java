@@ -21,29 +21,33 @@ public class Withdraw extends Transaction {
         boolean cashDispensed = false;
 
         do {
-            this.amount = this.promptForWithdraw();
-            if (this.amount == 6) {
-                this.displayScreen.displayMessageLine("\nCanceling transaction...");
+            amount = this.promptForWithdraw();
+
+            if (amount == CANCELED) {
+                displayScreen.displayMessageLine("\nCanceling transaction...");
+
                 return;
             }
 
-            double availableBalance = this.bank.getAvailableBalance(this.getAccountNumber());
-            if ((double)this.amount <= availableBalance) {
-                if (this.cashDispenser.isSufficientCashAvailable(this.amount)) {
-                    this.bank.debit(this.getAccountNumber(), (double)this.amount);
-                    this.cashDispenser.dispenseCash(this.amount);
+            double availableBalance = bank.getAvailableBalance(getAccountNumber());
+
+            if ((double)amount <= availableBalance) {
+                if (cashDispenser.isSufficientCashAvailable(amount)) {
+                    bank.debit(getAccountNumber(), (double)amount);
+                    cashDispenser.dispenseCash(amount);
                     cashDispensed = true;
-                    this.displayScreen.displayMessageLine("\nPlease take your cash.");
-                } else {
-                    this.displayScreen.displayMessageLine("\nInsufficient cash available in the ATM.");
-                    this.displayScreen.displayMessageLine("\nPlease choose a smaller amount.");
+                    displayScreen.displayMessageLine("\nPlease take your cash.");
                 }
-            } else {
-                this.displayScreen.displayMessageLine("\nInsufficient funds in your account.");
-                this.displayScreen.displayMessageLine("\nPlease choose a smaller amount.");
+                else {
+                    displayScreen.displayMessageLine("\nInsufficient cash available in the ATM.");
+                    displayScreen.displayMessageLine("\nPlease choose a smaller amount.");
+                }
+            }
+            else {
+                displayScreen.displayMessageLine("\nInsufficient funds in your account.");
+                displayScreen.displayMessageLine("\nPlease choose a smaller amount.");
             }
         } while(!cashDispensed);
-
     }
 
     private int promptForWithdraw() {
@@ -51,15 +55,16 @@ public class Withdraw extends Transaction {
         int option = 0;
 
         while(option == 0) {
-            this.displayScreen.displayMessageLine("\nWithdrawal menu:");
-            this.displayScreen.displayMessageLine("\t(1) - $20");
-            this.displayScreen.displayMessageLine("\t(2) - $40");
-            this.displayScreen.displayMessageLine("\t(3) - $60");
-            this.displayScreen.displayMessageLine("\t(4) - $100");
-            this.displayScreen.displayMessageLine("\t(5) - $200");
-            this.displayScreen.displayMessageLine("\t(6) - Cancel");
-            this.displayScreen.displayMessage("\nChoose a withdrawal amount: ");
-            int input = this.keypad.getInput();
+            displayScreen.displayMessageLine("\nWithdrawal menu:");
+            displayScreen.displayMessageLine("\t(1) - $20");
+            displayScreen.displayMessageLine("\t(2) - $40");
+            displayScreen.displayMessageLine("\t(3) - $60");
+            displayScreen.displayMessageLine("\t(4) - $100");
+            displayScreen.displayMessageLine("\t(5) - $200");
+            displayScreen.displayMessageLine("\t(6) - Cancel");
+            displayScreen.displayMessage("\nChoose a withdrawal amount: ");
+            int input = keypad.getInput();
+
             switch(input) {
                 case 1:
                 case 2:
@@ -72,7 +77,7 @@ public class Withdraw extends Transaction {
                     option = 6;
                     break;
                 default:
-                    this.displayScreen.displayMessageLine("\nInvalid selection. Try again.");
+                    displayScreen.displayMessageLine("\nInvalid selection. Try again.");
             }
         }
 

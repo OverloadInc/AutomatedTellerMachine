@@ -15,15 +15,15 @@ public abstract class Transaction {
     }
 
     public int getAccountNumber() {
-        return this.accountNumber;
+        return accountNumber;
     }
 
     public DisplayScreen getScreen() {
-        return this.displayScreen;
+        return displayScreen;
     }
 
     public Bank getBankDatabase() {
-        return this.bank;
+        return bank;
     }
 
     protected abstract void execute();

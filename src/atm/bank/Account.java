@@ -14,15 +14,15 @@ public class Account {
     }
 
     public int getAccountNumber() {
-        return this.accountNumber;
+        return accountNumber;
     }
 
     public double getAvailableBalance() {
-        return this.availableBalance;
+        return availableBalance;
     }
 
     public double getTotalBalance() {
-        return this.totalBalance;
+        return totalBalance;
     }
 
     public boolean validatePIN(int pin) {
@@ -30,11 +30,11 @@ public class Account {
     }
 
     public void credit(double amount) {
-        this.totalBalance += amount;
+        totalBalance += amount;
     }
 
     public void debit(double amount) {
-        this.availableBalance -= amount;
-        this.totalBalance -= amount;
+        availableBalance -= amount;
+        totalBalance -= amount;
     }
 }

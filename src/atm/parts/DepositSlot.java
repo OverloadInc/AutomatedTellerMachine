@@ -1,6 +1,7 @@
 package atm.parts;
 
 public class DepositSlot {
+
     public DepositSlot() {
     }
 
