@@ -527,32 +527,10 @@ public class ATMGraphic extends JFrame {
         settingsPanel.setBackground(new Color(146, 195, 242));
         settingsPanel.setName("settingsPanel");
 
-        /*GroupLayout settingsPanelLayout = new GroupLayout(settingsPanel);
-        settingsPanel.setLayout(settingsPanelLayout);
-        settingsPanelLayout.setHorizontalGroup(
-                settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 302, Short.MAX_VALUE)
-        );
-        settingsPanelLayout.setVerticalGroup(
-                settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 250, Short.MAX_VALUE)
-        );*/
-
         operationPanel.add(settingsPanel, "settingsPanel");
 
         statementPanel.setBackground(new Color(146, 195, 242));
         statementPanel.setName("statementPanel");
-
-        /*GroupLayout statementPanelLayout = new GroupLayout(statementPanel);
-        statementPanel.setLayout(statementPanelLayout);
-        statementPanelLayout.setHorizontalGroup(
-                statementPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 302, Short.MAX_VALUE)
-        );
-        statementPanelLayout.setVerticalGroup(
-                statementPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 250, Short.MAX_VALUE)
-        );*/
 
         operationPanel.add(statementPanel, "statementPanel");
 
