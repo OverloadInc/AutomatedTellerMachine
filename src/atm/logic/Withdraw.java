@@ -5,6 +5,8 @@ import atm.parts.CashDispenser;
 import atm.parts.DisplayScreen;
 import atm.parts.Keypad;
 
+import javax.swing.*;
+
 public class Withdraw extends Transaction {
     private int amount;
     private Keypad keypad;
@@ -48,6 +50,35 @@ public class Withdraw extends Transaction {
                 displayScreen.displayMessageLine("\nPlease choose a smaller amount.");
             }
         } while(!cashDispensed);
+    }
+
+    public void execute(double option) {
+        int userOption = (int)option;
+        int[] amountOptions = new int[]{0, 20, 40, 60, 100, 200};
+
+        switch(userOption){
+            case 1: case 2: case 3: case 4: case 5:
+                amount = amountOptions[(int)option]; break;
+            default:
+                amount = userOption;
+        }
+
+        double availableBalance = bank.getAvailableBalance(getAccountNumber());
+
+        if ((double)amount <= availableBalance) {
+            if (cashDispenser.isSufficientCashAvailable((int) amount)) {
+                bank.debit(getAccountNumber(), (double)amount);
+                cashDispenser.dispenseCash((int) amount);
+
+                JOptionPane.showMessageDialog(null, "\nPlease take your cash.");
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "\nInsufficient cash available in the ATM.\nPlease choose a smaller amount.");
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "\nInsufficient funds in your account.\nPlease choose a smaller amount.");
+        }
     }
 
     private int promptForWithdraw() {

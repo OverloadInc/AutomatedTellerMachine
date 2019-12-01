@@ -1,6 +1,7 @@
 package atm.logic;
 
 import atm.bank.Bank;
+import atm.front.ATMGraphic;
 import atm.parts.DepositSlot;
 import atm.parts.DisplayScreen;
 import atm.parts.Keypad;
@@ -37,6 +38,24 @@ public class Deposit extends Transaction {
         }
         else {
             displayScreen.displayMessageLine("\nCanceling transaction...");
+        }
+    }
+
+    public void execute(double amount) {
+        if (amount != 0.0D) {
+            boolean envelopeReceived = depositSlot.isEnvelopeReceived();
+
+            if (envelopeReceived) {
+                ATMGraphic.setDepositAmount("Your envelope has been received.");
+
+                bank.credit(getAccountNumber(), amount);
+            }
+            else {
+                ATMGraphic.setDepositAmount("\nYou did not insert an envelope\nThe transaction was canceled");
+            }
+        }
+        else {
+            ATMGraphic.setDepositAmount("\nCanceling transaction...");
         }
     }
 

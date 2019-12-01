@@ -27,4 +27,6 @@ public abstract class Transaction {
     }
 
     protected abstract void execute();
+
+    protected abstract void execute(double amount);
 }
