@@ -7,12 +7,25 @@ import atm.parts.Keypad;
 
 import javax.swing.*;
 
+/**
+ * <code>Withdraw</code>
+ * @author Overload Inc.
+ * @version 1.0, 23 Jan 2022
+ */
 public class Withdraw extends Transaction {
     private int amount;
     private Keypad keypad;
     private CashDispenser cashDispenser;
     private static final int CANCELED = 6;
 
+    /**
+     *
+     * @param accountNumber
+     * @param displayScreen
+     * @param bank
+     * @param keypad
+     * @param cashDispenser
+     */
     public Withdraw(int accountNumber, DisplayScreen displayScreen, Bank bank, Keypad keypad, CashDispenser cashDispenser) {
         super(accountNumber, displayScreen, bank);
         this.keypad = keypad;
@@ -81,6 +94,10 @@ public class Withdraw extends Transaction {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     private int promptForWithdraw() {
         int[] amounts = new int[]{0, 20, 40, 60, 100, 200};
         int option = 0;

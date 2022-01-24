@@ -4,8 +4,19 @@ import atm.bank.Bank;
 import atm.front.ATMGraphic;
 import atm.parts.DisplayScreen;
 
+/**
+ * <code>Balance</code>
+ * @author Overload Inc.
+ * @version 1.0, 23 Jan 2022
+ */
 public class Balance extends Transaction {
 
+    /**
+     *
+     * @param accountNumber
+     * @param displayScreen
+     * @param bank
+     */
     public Balance(int accountNumber, DisplayScreen displayScreen, Bank bank) {
         super(accountNumber, displayScreen, bank);
     }

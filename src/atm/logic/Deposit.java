@@ -6,11 +6,24 @@ import atm.parts.DepositSlot;
 import atm.parts.DisplayScreen;
 import atm.parts.Keypad;
 
+/**
+ * <code>Deposit</code>
+ * @author Overload Inc.
+ * @version 1.0, 23 Jan 2022
+ */
 public class Deposit extends Transaction {
     private double amount;
     private Keypad keypad;
     private DepositSlot depositSlot;
 
+    /**
+     *
+     * @param accountNumber
+     * @param displayScreen
+     * @param bank
+     * @param keypad
+     * @param depositSlot
+     */
     public Deposit(int accountNumber, DisplayScreen displayScreen, Bank bank, Keypad keypad, DepositSlot depositSlot) {
         super(accountNumber, displayScreen, bank);
         this.keypad = keypad;
@@ -59,6 +72,10 @@ public class Deposit extends Transaction {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     private double promptForDeposit() {
         displayScreen.displayMessage("\nEnter a deposit amount or digit 0 to cancel: ");
         int input = keypad.getInput();

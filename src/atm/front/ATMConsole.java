@@ -11,6 +11,11 @@ import atm.parts.DepositSlot;
 import atm.parts.DisplayScreen;
 import atm.parts.Keypad;
 
+/**
+ * <code>ATMConsole</code>
+ * @author Overload Inc.
+ * @version 1.0, 23 Jan 2022
+ */
 public class ATMConsole {
     private boolean userAuthenticated = false;
     private int currentAccountNumber = 0;
@@ -24,6 +29,9 @@ public class ATMConsole {
     private static final int DEPOSIT = 3;
     private static final int EXIT = 4;
 
+    /**
+     *
+     */
     public ATMConsole() {
         bank = new Bank();
         keypad = new Keypad();
@@ -32,6 +40,9 @@ public class ATMConsole {
         cashDispenser = new CashDispenser();
     }
 
+    /**
+     *
+     */
     public void run() {
         while(true) {
             if (userAuthenticated) {
@@ -47,6 +58,9 @@ public class ATMConsole {
         }
     }
 
+    /**
+     *
+     */
     private void authenticateUser() {
         displayScreen.displayMessage("\nEnter your account number: ");
         int accountNumber = keypad.getInput();
@@ -62,6 +76,9 @@ public class ATMConsole {
             displayScreen.displayMessageLine("\nInvalid account number or PIN. Please try again.");
     }
 
+    /**
+     *
+     */
     private void promptForTransactions() {
         Transaction currentTransaction = null;
         boolean finished = false;
@@ -92,6 +109,10 @@ public class ATMConsole {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     private int displayMainMenu() {
         displayScreen.displayMessageLine("\nMain menu:");
         displayScreen.displayMessageLine("\t(1) - View my balance");
@@ -103,6 +124,11 @@ public class ATMConsole {
         return keypad.getInput();
     }
 
+    /**
+     *
+     * @param option
+     * @return
+     */
     private Transaction createTransaction(int option) {
         Transaction transaction = null;
 

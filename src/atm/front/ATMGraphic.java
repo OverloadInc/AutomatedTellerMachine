@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * <code>ATMGraphic</code>
+ * @author Overload Inc.
+ * @version 1.0, 23 Jan 2022
+ */
 public class ATMGraphic extends JFrame {
     private JPanel balancePanel;
     private JButton btnBalance;
@@ -76,7 +81,10 @@ public class ATMGraphic extends JFrame {
     private static final int DEPOSIT = 3;
     private static final int EXIT = 4;
     private static String message = "Exiting the system";
-    
+
+    /**
+     *
+     */
     public ATMGraphic() {
         initComponents();
         enableButtons(false);
@@ -88,7 +96,10 @@ public class ATMGraphic extends JFrame {
         cashDispenser = new CashDispenser();
         oPanel = (CardLayout)this.operationPanel.getLayout();
     }
-     
+
+    /**
+     *
+     */
     private void initComponents() {
         GridBagConstraints gridBagConstraints;
 
@@ -822,65 +833,125 @@ public class ATMGraphic extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnOneActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "1");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnTwoActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "2");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnThreeActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "3");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnFourActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "4");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnFiveActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "5");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnSixActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "6");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnSevenActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "7");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnEightActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "8");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnNineActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "9");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnDotActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + ".");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnZeroActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "0");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnTripleZeroActionPerformed(ActionEvent evt) {
         txtAccount.setText(txtAccount.getText() + "000");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnDeleteActionPerformed(ActionEvent evt) {
         String account = txtAccount.getText();
 
         txtAccount.setText(txtAccount.getText().substring(0, account.length()-1));
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnCancelActionPerformed(ActionEvent evt) {
         txtAccount.setText("");
         txtPin.setText("");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnEnterActionPerformed(ActionEvent evt) {
         String panel = getActivePanel();
 
@@ -895,16 +966,28 @@ public class ATMGraphic extends JFrame {
         }
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnDepositActionPerformed(ActionEvent evt) {
         oPanel.show(this.operationPanel, "depositPanel");
         txtDeposit.requestFocusInWindow();
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnWithdrawActionPerformed(ActionEvent evt) {
         oPanel.show(this.operationPanel, "withdrawPanel");
         txtOption.requestFocusInWindow();
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnExitActionPerformed(ActionEvent evt) {
         try {
             Thread.sleep(5000);
@@ -916,23 +999,43 @@ public class ATMGraphic extends JFrame {
         oPanel.show(this.operationPanel, "loginPanel");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnBalanceActionPerformed(ActionEvent evt) {
         oPanel.show(this.operationPanel, "balancePanel");
         txtAvailable.requestFocusInWindow();
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnTransferActionPerformed(ActionEvent evt) {
         oPanel.show(this.operationPanel, "transferPanel");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnSettingsActionPerformed(ActionEvent evt) {
         oPanel.show(this.operationPanel, "settingsPanel");
     }
 
+    /**
+     *
+     * @param evt
+     */
     private void btnStatementActionPerformed(ActionEvent evt) {
         oPanel.show(this.operationPanel, "statementPanel");
     }
 
+    /**
+     *
+     * @param option
+     */
     private void enableButtons(boolean option){
         btnWithdraw.setEnabled(option);
         btnBalance.setEnabled(option);
@@ -943,6 +1046,10 @@ public class ATMGraphic extends JFrame {
         btnExit.setEnabled(option);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getActivePanel() {
         String panel = null;
 
@@ -955,6 +1062,9 @@ public class ATMGraphic extends JFrame {
         return panel;
     }
 
+    /**
+     *
+     */
     private void authenticateUser(){
         int accountNumber = Integer.parseInt(txtAccount.getText());
         int pin = Integer.parseInt(new String(txtPin.getPassword()));
@@ -975,6 +1085,9 @@ public class ATMGraphic extends JFrame {
         }
     }
 
+    /**
+     *
+     */
     public void deposite() {
         double deposit = Double.parseDouble(txtDeposit.getText());
 
@@ -982,6 +1095,9 @@ public class ATMGraphic extends JFrame {
         ((Deposit)currentTransaction).execute(deposit);
     }
 
+    /**
+     *
+     */
     public void withdraw() {
         String option = txtOption.getText();
 
@@ -989,11 +1105,19 @@ public class ATMGraphic extends JFrame {
         ((Withdraw)currentTransaction).execute(Double.parseDouble(option));
     }
 
+    /**
+     *
+     */
     public void balance() {
         Transaction currentTransaction = createTransaction(BALANCE);
         ((Balance)currentTransaction).execute(0D);
     }
 
+    /**
+     *
+     * @param option
+     * @return
+     */
     private Transaction createTransaction(int option) {
         Transaction transaction = null;
 
@@ -1012,18 +1136,34 @@ public class ATMGraphic extends JFrame {
         return (Transaction)transaction;
     }
 
+    /**
+     *
+     * @param amount
+     */
     public static void setAvailableBalance(double amount) {
         txtAvailable.setText(amount + "");
     }
 
+    /**
+     *
+     * @param amount
+     */
     public static void setTotalBalance(double amount) {
         txtTotal.setText(amount + "");
     }
 
+    /**
+     *
+     * @param message
+     */
     public static void setDepositAmount(String message) {
         lblDepositMessage.setText(message);
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
